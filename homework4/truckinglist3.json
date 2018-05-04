@@ -1,0 +1,46 @@
+{
+  "Mainline": {
+    "Table": {
+      "Header": {
+        "Data": [
+          "Parpany",
+          "Subsidiartfolio / Services",
+          "Hnfo",
+          "Annuvenue ($ million)",
+          "HoPage",
+          "Loo"
+        ]
+      },
+      "Row": [
+          
+        {
+          "Company": "",
+          "Services": "",
+          "Hubs": {
+            "Hub": [
+            ]
+          },
+          "Revenue": "",
+          "HomePage": "",
+          "Logo": ""
+        },
+  
+      
+        {
+          "Company": "Swift Transportation",
+          "Services": "Truckload, Dedicated, Intermodal",
+          "Hubs": {
+            "Hub": [
+              "Phoenix, Arizona, United States",
+              "In 1966, the company now known as Swift Transportation started out hauling steel from Los Angeles to Arizona and cotton from Arizona back to Southern California. More than four decades later, the company now owns 11 other trucking subsidiaries, operates more than 16,000 trucks and hauls truckload-sized freight all over the U.S., Canada and Mexico. "
+            ]
+          },
+          "Revenue": "$3,334",
+          "HomePage": "http://www.swifttrans.com/",
+          "Logo": "http://cs-server.usc.edu:45678/hw/hw4/swift.png"
+        }        
+        
+      ]
+    }
+  }
+}

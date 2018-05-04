@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Homework 4</title>
+    <style>
+      *{
+        text-align: center;
+      }
+      h1{
+        margin-top: 150px;
+        font-size: 25px;
+        text-align: center;
+      }
+      button{
+        margin-top: 15px;
+        text-align: center;
+      }
+      input{
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Enter URL for Trucking List JSON File</h1>
+    <input type="text" name="jsonFile" id="input"><br>
+    <button type="button" name="button" onclick="handleClick()">Submit Query</button>
+    <script type="text/javascript">
+    function handleClick(){
+
+      var fileName = document.getElementById("input").value;
+      fileName = fileName.replace(/^\s+|\s+$/g,"");
+      if (fileName === "") {
+        alert("You must enter a  json file.");
+      } else {
+        try {
+          loadJSON(fileName, function(text){
+            var data = JSON.parse(text);
+            handleData(data);
+          });
+        } catch (err) {
+          console.log("check the error");
+          alert("No such json file. Please check your input.");
+        } 
+      }
+
+      function handleData(data){
+        var table = data.Mainline.Table;
+        if (!('Row' in table)){
+          alert('No content in this json file.');
+          return;
+        }
+        var win = window.open("", "somename", "width=1000");
+        var doc = win.document;
+
+        var html = '<!DOCTYPE html><html><head><meta charset=UTF-8"/>';
+        html += '<style>table, th, td {border: 1px solid black;}img{width:300px;height:170px;}</style>';
+        html += '</head><body><table><tr>';
+        var header = table.Header.Data
+        for (var i = 0; i < header.length; i++) {
+          html += '<th>'+header[i]+'</th>';
+        }
+        html += '</tr>';
+        var content = table.Row;
+        for (var i = 0; i < content.length; i++) {
+          html += '<tr>';
+          html += '<td>'+content[i].Company+'</td>';
+          html += '<td>'+content[i].Services+'</td>';
+          var hub = content[i].Hubs.Hub;
+          html += '<td><ul>';
+          for (var j = 0; j < hub.length; j++) {
+            if (j == 0) {
+              html += '<li><strong>'+hub[j]+'</strong></li>';
+            } else {
+              html += '<li>'+hub[j]+'</li>';
+            }
+          }
+          html += '</ul></td>';
+          html += '<td>'+content[i].Revenue+'</td>';
+          html += '<td><a href='+content[i].HomePage+'>'+content[i].HomePage+'</a></td>';
+          html += '<td><div><img src='+content[i].Logo+' alt=&apos;company&apos; /></div></td>';
+          html += '</tr>';
+        }
+        html += '</table></body></html>'; 
+
+        doc.write(html);
+        doc.close();
+      }
+
+      function loadJSON(url, callback){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.overrideMimeType("application/json");
+        xmlhttp.open("GET",url,false);
+        xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.status == 404) {
+            alert("No such json file. Please check your input.");
+          }else if (xmlhttp.readyState === 4 && xmlhttp.status == 200) {
+            callback(xmlhttp.responseText);
+          }
+        } 
+        xmlhttp.send(); 
+      }
+    }
+    </script>
+  </body>
+</html>
